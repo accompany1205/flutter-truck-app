@@ -1,0 +1,63 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="clientAccount">
+            <h2><span>Client Account</span> {{ clientAccount.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span>Phone</span></dt>
+                <dd>
+                    <span>{{ clientAccount.phone }}</span>
+                </dd>
+                <dt><span>Referal</span></dt>
+                <dd>
+                    <span>{{ clientAccount.referal }}</span>
+                </dd>
+                <dt><span>Refered By</span></dt>
+                <dd>
+                    <span>{{ clientAccount.referedBy }}</span>
+                </dd>
+                <dt><span>Mini Bio</span></dt>
+                <dd>
+                    <span>{{ clientAccount.miniBio }}</span>
+                </dd>
+                <dt><span>Verified Phone</span></dt>
+                <dd>
+                    <span>{{ clientAccount.verifiedPhone }}</span>
+                </dd>
+                <dt><span>Photo</span></dt>
+                <dd>
+                    <div *ngIf="clientAccount.photo">
+                        <a (click)="openFile(clientAccount?.photoContentType!, clientAccount?.photo)">open</a>
+                        {{ clientAccount.photoContentType }}, {{ byteSize(clientAccount.photo) }}
+                    </div>
+                </dd>
+                <dt><span>User</span></dt>
+                <dd>
+                    {{ clientAccount.userLogin }}
+                </dd>
+                <dt><span>Identity</span></dt>
+                <dd>
+                    <div *ngIf="clientAccount.identityId">
+                        <a [routerLink]="['/identity', clientAccount.identityId, 'view']">{{ clientAccount.identityIdentity }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/client-account', clientAccount.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+{
+    "name": "Comments",
+    "fields": [
+        {
+            "fieldName": "text",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "date",
+            "fieldType": "ZonedDateTime",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "trip",
+            "otherEntityRelationshipName": "comments",
+            "relationshipName": "trip",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "transporterAccount",
+            "otherEntityRelationshipName": "comments",
+            "relationshipName": "transporterAccount",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200413162400",
+    "entityTableName": "comments",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": true,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

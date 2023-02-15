@@ -1,0 +1,52 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="match">
+            <h2><span>Match</span> {{ match.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span>Status</span></dt>
+                <dd>
+                    <span>{{ match.status }}</span>
+                </dd>
+                <dt><span>Date</span></dt>
+                <dd>
+                    <span>{{ match.date }}</span>
+                </dd>
+                <dt><span>Conversation</span></dt>
+                <dd>
+                    <div *ngIf="match.conversationId">
+                        <a [routerLink]="['/conversation', match.conversationId, 'view']">{{ match.conversationId }}</a>
+                    </div>
+                </dd>
+                <dt><span>Truck</span></dt>
+                <dd>
+                    <div *ngIf="match.truckId">
+                        <a [routerLink]="['/truck', match.truckId, 'view']">{{ match.truckId }}</a>
+                    </div>
+                </dd>
+                <dt><span>Trip</span></dt>
+                <dd>
+                    <div *ngIf="match.tripId">
+                        <a [routerLink]="['/trip', match.tripId, 'view']">{{ match.tripId }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/match', match.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

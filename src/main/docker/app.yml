@@ -1,0 +1,8 @@
+version: '2'
+services:
+  lacus-app:
+    build: ../../..
+    container_name: lacus-app
+    environment:
+    ports:
+      - 8081:8081:

@@ -1,0 +1,31 @@
+{
+    "name": "Origin",
+    "fields": [],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "location",
+            "otherEntityRelationshipName": "origin",
+            "relationshipName": "location",
+            "ownerSide": false
+        },
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "trip",
+            "otherEntityRelationshipName": "origin",
+            "relationshipName": "trip",
+            "ownerSide": false
+        }
+    ],
+    "changelogDate": "20200413162500",
+    "entityTableName": "origin",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": true,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

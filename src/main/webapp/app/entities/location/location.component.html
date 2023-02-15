@@ -1,0 +1,95 @@
+<div>
+    <h2 id="page-heading">
+        <span>Locations</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-location" [routerLink]="['/location/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span>
+            Create a new Location
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="locations?.length === 0">
+        <span>No locations found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="locations?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th scope="col"  jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="streetAddress"><span>Street Address</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="postalCode"><span>Postal Code</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="city"><span>City</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="stateProvince"><span>State Province</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="originId"><span>Origin</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="destinationId"><span>Destination</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="countryId"><span>Country</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let location of locations ;trackBy: trackId">
+                    <td><a [routerLink]="['/location', location.id, 'view']">{{ location.id }}</a></td>
+                    <td>{{ location.streetAddress }}</td>
+                    <td>{{ location.postalCode }}</td>
+                    <td>{{ location.city }}</td>
+                    <td>{{ location.stateProvince }}</td>
+                    <td>
+                        <div *ngIf="location.originId">
+                            <a [routerLink]="['/origin', location.originId , 'view']" >{{ location.originId }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="location.destinationId">
+                            <a [routerLink]="['/destination', location.destinationId , 'view']" >{{ location.destinationId }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="location.countryId">
+                            <a [routerLink]="['/country', location.countryId , 'view']" >{{ location.countryId }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/location', location.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/location', location.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(location)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="locations?.length > 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,97 @@
+{
+    "name": "TransporterAccount",
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "phone",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "patent",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "any",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "balance",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "insurance",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "any"
+        },
+        {
+            "fieldName": "referal",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "referedBy",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "miniBio",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "verifiedPhone",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "photo",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "any"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "user",
+            "otherEntityRelationshipName": "transporterAccount",
+            "relationshipValidateRules": "required",
+            "relationshipName": "user",
+            "otherEntityField": "login",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "truck",
+            "otherEntityRelationshipName": "transporterAccount",
+            "relationshipName": "truck"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "reputation",
+            "otherEntityRelationshipName": "transporterAccount",
+            "relationshipName": "reputation"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "comments",
+            "otherEntityRelationshipName": "transporterAccount",
+            "relationshipName": "comments"
+        }
+    ],
+    "changelogDate": "20200413162000",
+    "entityTableName": "transporter_account",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": true,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

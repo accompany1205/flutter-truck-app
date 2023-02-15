@@ -1,0 +1,91 @@
+<div>
+    <h2 id="page-heading">
+        <span>Reputations</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-reputation" [routerLink]="['/reputation/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span>
+            Create a new Reputation
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="reputations?.length === 0">
+        <span>No reputations found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="reputations?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th scope="col"  jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="rate"><span>Rate</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="goods"><span>Goods</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="punctuality"><span>Punctuality</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="communication"><span>Communication</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="comment"><span>Comment</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="transporterAccountId"><span>Transporter Account</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="clientAccountId"><span>Client Account</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let reputation of reputations ;trackBy: trackId">
+                    <td><a [routerLink]="['/reputation', reputation.id, 'view']">{{ reputation.id }}</a></td>
+                    <td>{{ reputation.rate }}</td>
+                    <td>{{ reputation.goods }}</td>
+                    <td>{{ reputation.punctuality }}</td>
+                    <td>{{ reputation.communication }}</td>
+                    <td>{{ reputation.comment }}</td>
+                    <td>
+                        <div *ngIf="reputation.transporterAccountId">
+                            <a [routerLink]="['/transporter-account', reputation.transporterAccountId , 'view']" >{{ reputation.transporterAccountId }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="reputation.clientAccountId">
+                            <a [routerLink]="['/client-account', reputation.clientAccountId , 'view']" >{{ reputation.clientAccountId }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/reputation', reputation.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/reputation', reputation.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(reputation)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="reputations?.length > 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+        </div>
+    </div>
+</div>

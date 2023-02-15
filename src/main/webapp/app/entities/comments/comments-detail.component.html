@@ -1,0 +1,46 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="comments">
+            <h2><span>Comments</span> {{ comments.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span>Text</span></dt>
+                <dd>
+                    <span>{{ comments.text }}</span>
+                </dd>
+                <dt><span>Date</span></dt>
+                <dd>
+                    <span>{{ comments.date }}</span>
+                </dd>
+                <dt><span>Trip</span></dt>
+                <dd>
+                    <div *ngIf="comments.tripId">
+                        <a [routerLink]="['/trip', comments.tripId, 'view']">{{ comments.tripId }}</a>
+                    </div>
+                </dd>
+                <dt><span>Transporter Account</span></dt>
+                <dd>
+                    <div *ngIf="comments.transporterAccountId">
+                        <a [routerLink]="['/transporter-account', comments.transporterAccountId, 'view']">{{ comments.transporterAccountId }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/comments', comments.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,66 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="truck">
+            <h2><span>Truck</span> {{ truck.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span>Plate Number</span></dt>
+                <dd>
+                    <span>{{ truck.plateNumber }}</span>
+                </dd>
+                <dt><span>Conteneur Plate Number</span></dt>
+                <dd>
+                    <span>{{ truck.conteneurPlateNumber }}</span>
+                </dd>
+                <dt><span>Type</span></dt>
+                <dd>
+                    <span>{{ truck.type }}</span>
+                </dd>
+                <dt><span>Width</span></dt>
+                <dd>
+                    <span>{{ truck.width }}</span>
+                </dd>
+                <dt><span>Height</span></dt>
+                <dd>
+                    <span>{{ truck.height }}</span>
+                </dd>
+                <dt><span>Length</span></dt>
+                <dd>
+                    <span>{{ truck.length }}</span>
+                </dd>
+                <dt><span>Max Weight</span></dt>
+                <dd>
+                    <span>{{ truck.maxWeight }}</span>
+                </dd>
+                <dt><span>Driver</span></dt>
+                <dd>
+                    <div *ngIf="truck.driverId">
+                        <a [routerLink]="['/driver', truck.driverId, 'view']">{{ truck.driverId }}</a>
+                    </div>
+                </dd>
+                <dt><span>Transporter Account</span></dt>
+                <dd>
+                    <div *ngIf="truck.transporterAccountId">
+                        <a [routerLink]="['/transporter-account', truck.transporterAccountId, 'view']">{{ truck.transporterAccountId }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/truck', truck.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

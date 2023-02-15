@@ -1,0 +1,88 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="trip">
+            <h2><span>Trip</span> {{ trip.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span>Is Full</span></dt>
+                <dd>
+                    <span>{{ trip.isFull }}</span>
+                </dd>
+                <dt><span>Width</span></dt>
+                <dd>
+                    <span>{{ trip.width }}</span>
+                </dd>
+                <dt><span>Height</span></dt>
+                <dd>
+                    <span>{{ trip.height }}</span>
+                </dd>
+                <dt><span>Length</span></dt>
+                <dd>
+                    <span>{{ trip.length }}</span>
+                </dd>
+                <dt><span>Weight</span></dt>
+                <dd>
+                    <span>{{ trip.weight }}</span>
+                </dd>
+                <dt><span>Marchandise</span></dt>
+                <dd>
+                    <span>{{ trip.marchandise }}</span>
+                </dd>
+                <dt><span>Etd</span></dt>
+                <dd>
+                    <span>{{ trip.etd }}</span>
+                </dd>
+                <dt><span>Description</span></dt>
+                <dd>
+                    <span>{{ trip.description }}</span>
+                </dd>
+                <dt><span>State</span></dt>
+                <dd>
+                    <span>{{ trip.state }}</span>
+                </dd>
+                <dt><span>Eta</span></dt>
+                <dd>
+                    <span>{{ trip.eta }}</span>
+                </dd>
+                <dt><span>Distance</span></dt>
+                <dd>
+                    <span>{{ trip.distance }}</span>
+                </dd>
+                <dt><span>Origin</span></dt>
+                <dd>
+                    <div *ngIf="trip.originId">
+                        <a [routerLink]="['/origin', trip.originId, 'view']">{{ trip.originId }}</a>
+                    </div>
+                </dd>
+                <dt><span>Destination</span></dt>
+                <dd>
+                    <div *ngIf="trip.destinationId">
+                        <a [routerLink]="['/destination', trip.destinationId, 'view']">{{ trip.destinationId }}</a>
+                    </div>
+                </dd>
+                <dt><span>Client Account</span></dt>
+                <dd>
+                    <div *ngIf="trip.clientAccountId">
+                        <a [routerLink]="['/client-account', trip.clientAccountId, 'view']">{{ trip.clientAccountId }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/trip', trip.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

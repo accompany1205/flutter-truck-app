@@ -1,0 +1,31 @@
+{
+    "name": "Destination",
+    "fields": [],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "location",
+            "otherEntityRelationshipName": "destination",
+            "relationshipName": "location",
+            "ownerSide": false
+        },
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "trip",
+            "otherEntityRelationshipName": "destination",
+            "relationshipName": "trip",
+            "ownerSide": false
+        }
+    ],
+    "changelogDate": "20200413162600",
+    "entityTableName": "destination",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": true,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

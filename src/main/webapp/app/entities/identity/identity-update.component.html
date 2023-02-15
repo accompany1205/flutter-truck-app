@@ -1,0 +1,54 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-identity-heading">Create or edit a Identity</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_identity">Identity</label>
+                    <div>
+                        <div *ngIf="editForm.get('identity')!.value" class="form-text text-danger clearfix">
+                            <a class="pull-left" (click)="openFile(editForm.get('identityContentType')!.value, editForm.get('identity')!.value)">open</a><br>
+                            <span class="pull-left">{{ editForm.get('identityContentType')!.value }}, {{ byteSize(editForm.get('identity')!.value) }}</span>
+                            <button type="button" (click)="editForm.patchValue({identity: null});editForm.patchValue({identityContentType: null});"
+                                    class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon icon="times"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_identity" (change)="setFileData($event, 'identity', false)"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="identity" id="field_identity"
+                           formControlName="identity"/>
+                    <input type="hidden" class="form-control" name="identityContentType" id="field_identityContentType"
+                           formControlName="identityContentType" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_type">Type</label>
+                    <select class="form-control" name="type" formControlName="type" id="field_type">
+                        <option value="CIN">CIN</option>
+                        <option value="PASSPORT">PASSPORT</option>
+                        <option value="DRIVING_LICENSE">DRIVING_LICENSE</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

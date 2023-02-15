@@ -1,0 +1,102 @@
+<div>
+    <h2 id="page-heading">
+        <span>Transporter Accounts</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-transporter-account" [routerLink]="['/transporter-account/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span>
+            Create a new Transporter Account
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="transporterAccounts?.length === 0">
+        <span>No transporterAccounts found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="transporterAccounts?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th scope="col"  jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="name"><span>Name</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="phone"><span>Phone</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="patent"><span>Patent</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="balance"><span>Balance</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="insurance"><span>Insurance</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="referal"><span>Referal</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="referedBy"><span>Refered By</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="miniBio"><span>Mini Bio</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="verifiedPhone"><span>Verified Phone</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="photo"><span>Photo</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="userLogin"><span>User</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let transporterAccount of transporterAccounts ;trackBy: trackId">
+                    <td><a [routerLink]="['/transporter-account', transporterAccount.id, 'view']">{{ transporterAccount.id }}</a></td>
+                    <td>{{ transporterAccount.name }}</td>
+                    <td>{{ transporterAccount.phone }}</td>
+                    <td>
+                        <a *ngIf="transporterAccount.patent" (click)="openFile(transporterAccount.patentContentType, transporterAccount.patent)">open</a>
+                        <span *ngIf="transporterAccount.patent">{{ transporterAccount.patentContentType }}, {{ byteSize(transporterAccount.patent) }}</span>
+                    </td>
+                    <td>{{ transporterAccount.balance }}</td>
+                    <td>
+                        <a *ngIf="transporterAccount.insurance" (click)="openFile(transporterAccount.insuranceContentType, transporterAccount.insurance)">open</a>
+                        <span *ngIf="transporterAccount.insurance">{{ transporterAccount.insuranceContentType }}, {{ byteSize(transporterAccount.insurance) }}</span>
+                    </td>
+                    <td>{{ transporterAccount.referal }}</td>
+                    <td>{{ transporterAccount.referedBy }}</td>
+                    <td>{{ transporterAccount.miniBio }}</td>
+                    <td>{{ transporterAccount.verifiedPhone }}</td>
+                    <td>
+                        <a *ngIf="transporterAccount.photo" (click)="openFile(transporterAccount.photoContentType, transporterAccount.photo)">open</a>
+                        <span *ngIf="transporterAccount.photo">{{ transporterAccount.photoContentType }}, {{ byteSize(transporterAccount.photo) }}</span>
+                    </td>
+                    <td>
+                        {{ transporterAccount.userLogin }}
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/transporter-account', transporterAccount.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/transporter-account', transporterAccount.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(transporterAccount)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="transporterAccounts?.length > 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+        </div>
+    </div>
+</div>

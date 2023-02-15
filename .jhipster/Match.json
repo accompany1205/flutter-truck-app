@@ -1,0 +1,55 @@
+{
+    "name": "Match",
+    "fields": [
+        {
+            "fieldName": "status",
+            "fieldType": "EMatchState",
+            "fieldValues": "ACCEPTED,DECLINED,PENDING",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "date",
+            "fieldType": "Instant",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "conversation",
+            "otherEntityRelationshipName": "match",
+            "relationshipName": "conversation",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "truck",
+            "otherEntityRelationshipName": "match",
+            "relationshipName": "truck",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "trip",
+            "otherEntityRelationshipName": "match",
+            "relationshipName": "trip",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200413162900",
+    "entityTableName": "match",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": true,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

@@ -1,0 +1,180 @@
+entity TransporterAccount {
+	name String required,
+    phone String required,
+    patent Blob required,
+    balance Integer,
+    insurance Blob,
+    referal String,
+    referedBy String,
+    miniBio String,
+    verifiedPhone Boolean,
+    photo Blob
+}
+
+entity Reputation {
+	// Many to One with Provider
+    // Many to One with Demander
+	// Trip Load
+    // Use ETA to know if you can comment, and to close te comment
+	rate Integer required,
+    goods Integer required,
+    punctuality Integer required,
+    communication Integer required,
+    comment String
+}
+
+entity ClientAccount {
+    phone String required,
+    referal String
+    referedBy String,
+    miniBio String,
+    verifiedPhone Boolean,
+    photo Blob
+}
+
+entity Identity {
+	identity Blob,
+    type EIdentity
+}
+
+enum EIdentity {
+	CIN,
+    PASSPORT,
+    DRIVING_LICENSE
+}
+
+entity Comments {
+	text String required,
+    date ZonedDateTime required
+}
+
+entity Origin {
+// related one to one with Location
+}
+
+entity Destination {
+// related one to one with Location
+}
+
+entity Trip {
+    isFull Boolean required, //
+    width Integer,
+    height Integer,
+    length Integer,
+    weight Integer,
+    marchandise EMarchandise required, // type of marchandise
+    etd ZonedDateTime required,
+    description String, // What are you transporting !
+    state ETripState, // Matched, Finised, In progress
+    eta ZonedDateTime,
+	distance Integer required
+}
+
+enum EMarchandise {
+	VEGETABLES,
+    RAW_MATERIAL,
+    FISH,
+    OTHER
+}
+
+enum ETripState {
+	SHIPPED,
+    PENDING,
+    MATCHED
+}
+
+enum ETruckType {
+	DOMESTIC,
+    EXPORT
+}
+
+entity Chat {
+	// Trip Owner
+    // Truck Owner
+    text String,
+    date Instant,
+    author String
+}
+
+entity Match {
+	status EMatchState required,
+    date Instant required
+}
+
+enum EMatchState {
+	ACCEPTED,
+    DECLINED,
+    PENDING
+}
+
+
+entity Truck {
+	plateNumber String required,
+    conteneurPlateNumber String,
+    type ETruckType,
+    width Integer,
+    height Integer,
+    length Integer,    
+    maxWeight Integer
+}
+
+entity Driver {
+   // Relation one to one with truck
+   firstName String required,
+   lastName String required,
+   currentCoordinate String
+}
+
+entity Region {
+	regionName String
+}
+
+entity Country {
+	countryName String
+}
+
+
+entity Location {
+	streetAddress String,
+	postalCode String,
+	city String,
+	stateProvince String
+}
+
+entity Conversation {
+
+}
+
+relationship OneToOne {
+    ClientAccount{user(login) required} to User,
+    TransporterAccount{user(login) required} to User,
+	Location to Origin,
+    Location to Destination,
+    Country to Region,
+	Location to Country,
+    Trip to Origin,
+    Trip to Destination,
+    Truck to Driver,
+    Match to Conversation,
+    ClientAccount{identity(identity)} to Identity
+}
+
+relationship OneToMany {
+	TransporterAccount to Truck,
+    TransporterAccount to Reputation,
+    ClientAccount to Reputation,
+    ClientAccount to Trip,
+    Conversation to Chat,
+    Trip to Comments,
+    TransporterAccount to Comments,
+    Truck to Match,
+    Trip to Match
+}
+
+paginate all with pagination
+
+dto all with mapstruct
+
+service all with serviceClass
+
+filter all

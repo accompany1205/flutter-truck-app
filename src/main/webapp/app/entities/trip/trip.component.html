@@ -1,0 +1,109 @@
+<div>
+    <h2 id="page-heading">
+        <span>Trips</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-trip" [routerLink]="['/trip/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span>
+            Create a new Trip
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="trips?.length === 0">
+        <span>No trips found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="trips?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th scope="col"  jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="isFull"><span>Is Full</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="width"><span>Width</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="height"><span>Height</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="length"><span>Length</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="weight"><span>Weight</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="marchandise"><span>Marchandise</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="etd"><span>Etd</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="description"><span>Description</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="state"><span>State</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="eta"><span>Eta</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="distance"><span>Distance</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="originId"><span>Origin</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="destinationId"><span>Destination</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="clientAccountId"><span>Client Account</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let trip of trips ;trackBy: trackId">
+                    <td><a [routerLink]="['/trip', trip.id, 'view']">{{ trip.id }}</a></td>
+                    <td>{{ trip.isFull }}</td>
+                    <td>{{ trip.width }}</td>
+                    <td>{{ trip.height }}</td>
+                    <td>{{ trip.length }}</td>
+                    <td>{{ trip.weight }}</td>
+                    <td>{{ trip.marchandise }}</td>
+                    <td>{{ trip.etd | date:'medium' }}</td>
+                    <td>{{ trip.description }}</td>
+                    <td>{{ trip.state }}</td>
+                    <td>{{ trip.eta | date:'medium' }}</td>
+                    <td>{{ trip.distance }}</td>
+                    <td>
+                        <div *ngIf="trip.originId">
+                            <a [routerLink]="['/origin', trip.originId , 'view']" >{{ trip.originId }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="trip.destinationId">
+                            <a [routerLink]="['/destination', trip.destinationId , 'view']" >{{ trip.destinationId }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="trip.clientAccountId">
+                            <a [routerLink]="['/client-account', trip.clientAccountId , 'view']" >{{ trip.clientAccountId }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/trip', trip.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/trip', trip.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(trip)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="trips?.length > 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,157 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-transporter-account-heading">Create or edit a Transporter Account</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                           formControlName="name"/>
+                    <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('name')?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_phone">Phone</label>
+                    <input type="text" class="form-control" name="phone" id="field_phone"
+                           formControlName="phone"/>
+                    <div *ngIf="editForm.get('phone')!.invalid && (editForm.get('phone')!.dirty || editForm.get('phone')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('phone')?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_patent">Patent</label>
+                    <div>
+                        <div *ngIf="editForm.get('patent')!.value" class="form-text text-danger clearfix">
+                            <a class="pull-left" (click)="openFile(editForm.get('patentContentType')!.value, editForm.get('patent')!.value)">open</a><br>
+                            <span class="pull-left">{{ editForm.get('patentContentType')!.value }}, {{ byteSize(editForm.get('patent')!.value) }}</span>
+                            <button type="button" (click)="editForm.patchValue({patent: null});editForm.patchValue({patentContentType: null});"
+                                    class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon icon="times"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_patent" (change)="setFileData($event, 'patent', false)"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="patent" id="field_patent"
+                           formControlName="patent"/>
+                    <input type="hidden" class="form-control" name="patentContentType" id="field_patentContentType"
+                           formControlName="patentContentType" />
+                    <div *ngIf="editForm.get('patent')!.invalid && (editForm.get('patent')!.dirty || editForm.get('patent')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('patent')?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_balance">Balance</label>
+                    <input type="number" class="form-control" name="balance" id="field_balance"
+                           formControlName="balance"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_insurance">Insurance</label>
+                    <div>
+                        <div *ngIf="editForm.get('insurance')!.value" class="form-text text-danger clearfix">
+                            <a class="pull-left" (click)="openFile(editForm.get('insuranceContentType')!.value, editForm.get('insurance')!.value)">open</a><br>
+                            <span class="pull-left">{{ editForm.get('insuranceContentType')!.value }}, {{ byteSize(editForm.get('insurance')!.value) }}</span>
+                            <button type="button" (click)="editForm.patchValue({insurance: null});editForm.patchValue({insuranceContentType: null});"
+                                    class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon icon="times"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_insurance" (change)="setFileData($event, 'insurance', false)"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="insurance" id="field_insurance"
+                           formControlName="insurance"/>
+                    <input type="hidden" class="form-control" name="insuranceContentType" id="field_insuranceContentType"
+                           formControlName="insuranceContentType" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_referal">Referal</label>
+                    <input type="text" class="form-control" name="referal" id="field_referal"
+                           formControlName="referal"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_referedBy">Refered By</label>
+                    <input type="text" class="form-control" name="referedBy" id="field_referedBy"
+                           formControlName="referedBy"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_miniBio">Mini Bio</label>
+                    <input type="text" class="form-control" name="miniBio" id="field_miniBio"
+                           formControlName="miniBio"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_verifiedPhone">Verified Phone</label>
+                    <input type="checkbox" class="form-control" name="verifiedPhone" id="field_verifiedPhone"
+                           formControlName="verifiedPhone"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_photo">Photo</label>
+                    <div>
+                        <div *ngIf="editForm.get('photo')!.value" class="form-text text-danger clearfix">
+                            <a class="pull-left" (click)="openFile(editForm.get('photoContentType')!.value, editForm.get('photo')!.value)">open</a><br>
+                            <span class="pull-left">{{ editForm.get('photoContentType')!.value }}, {{ byteSize(editForm.get('photo')!.value) }}</span>
+                            <button type="button" (click)="editForm.patchValue({photo: null});editForm.patchValue({photoContentType: null});"
+                                    class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon icon="times"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_photo" (change)="setFileData($event, 'photo', false)"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="photo" id="field_photo"
+                           formControlName="photo"/>
+                    <input type="hidden" class="form-control" name="photoContentType" id="field_photoContentType"
+                           formControlName="photoContentType" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_user">User</label>
+                    <select class="form-control" id="field_user" name="user" formControlName="userId">
+                        <option *ngIf="!editForm.get('userId')!.value" [ngValue]="null" selected></option>
+                        <option [ngValue]="userOption.id" *ngFor="let userOption of users; trackBy: trackById">{{ userOption.login }}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('userId')!.invalid && (editForm.get('userId')!.dirty || editForm.get('userId')!.touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('userId')?.errors?.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

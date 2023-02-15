@@ -1,0 +1,37 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="identity">
+            <h2><span>Identity</span> {{ identity.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span>Identity</span></dt>
+                <dd>
+                    <div *ngIf="identity.identity">
+                        <a (click)="openFile(identity?.identityContentType!, identity?.identity)">open</a>
+                        {{ identity.identityContentType }}, {{ byteSize(identity.identity) }}
+                    </div>
+                </dd>
+                <dt><span>Type</span></dt>
+                <dd>
+                    <span>{{ identity.type }}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/identity', identity.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

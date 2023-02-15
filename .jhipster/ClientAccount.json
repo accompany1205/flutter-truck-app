@@ -1,0 +1,75 @@
+{
+    "name": "ClientAccount",
+    "fields": [
+        {
+            "fieldName": "phone",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "referal",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "referedBy",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "miniBio",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "verifiedPhone",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "photo",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "any"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "user",
+            "otherEntityRelationshipName": "clientAccount",
+            "relationshipValidateRules": "required",
+            "relationshipName": "user",
+            "otherEntityField": "login",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "identity",
+            "otherEntityRelationshipName": "clientAccount",
+            "relationshipName": "identity",
+            "otherEntityField": "identity",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "reputation",
+            "otherEntityRelationshipName": "clientAccount",
+            "relationshipName": "reputation"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "trip",
+            "otherEntityRelationshipName": "clientAccount",
+            "relationshipName": "trip"
+        }
+    ],
+    "changelogDate": "20200413162200",
+    "entityTableName": "client_account",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": true,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

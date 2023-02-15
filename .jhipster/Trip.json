@@ -1,0 +1,111 @@
+{
+    "name": "Trip",
+    "fields": [
+        {
+            "fieldName": "isFull",
+            "fieldType": "Boolean",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "width",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "height",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "length",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "weight",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "marchandise",
+            "fieldType": "EMarchandise",
+            "fieldValues": "VEGETABLES,RAW_MATERIAL,FISH,OTHER",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "etd",
+            "fieldType": "ZonedDateTime",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "state",
+            "fieldType": "ETripState",
+            "fieldValues": "SHIPPED,PENDING,MATCHED"
+        },
+        {
+            "fieldName": "eta",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "distance",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "origin",
+            "otherEntityRelationshipName": "trip",
+            "relationshipName": "origin",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "destination",
+            "otherEntityRelationshipName": "trip",
+            "relationshipName": "destination",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "comments",
+            "otherEntityRelationshipName": "trip",
+            "relationshipName": "comments"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "match",
+            "otherEntityRelationshipName": "trip",
+            "relationshipName": "match"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "clientAccount",
+            "otherEntityRelationshipName": "trip",
+            "relationshipName": "clientAccount",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200413162700",
+    "entityTableName": "trip",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": true,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

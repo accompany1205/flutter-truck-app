@@ -1,0 +1,59 @@
+# ===================================================================
+# Configuration for the "dev" profile.
+#
+# This configuration overrides the application.yml file.
+#
+# More information on profiles: https://www.jhipster.tech/profiles/
+# More information on configuration properties: https://www.jhipster.tech/common-application-properties/
+# ===================================================================
+
+# ===================================================================
+# Standard app properties.
+# ===================================================================
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://admin:${jhipster.registry.password}@localhost:8761/eureka/
+
+server:
+  port: 8081
+
+  mail:
+    host: localhost
+    port: 25
+    username:
+    password:
+
+# ===================================================================
+# JHipster specific properties
+#
+# Full reference is available at: https://www.jhipster.tech/common-application-properties/
+# ===================================================================
+
+jhipster:
+  mail: # specific JHipster mail property, for standard properties see MailProperties
+    from: lacus@localhost
+    base-url: http://127.0.0.1:8082
+# ===================================================================
+# Application specific properties
+# Add your own application properties here, see the ApplicationProperties class
+# to have type-safe configuration, like in the JHipsterProperties above
+#
+# More documentation is available at:
+# https://www.jhipster.tech/common-application-properties/
+# ===================================================================
+
+application:
+  files:
+    google:
+      path: ./files/google
+      empty: ./files/google/empty.png
+      key: AIzaSyB8e7yEqUG_6l_CeR5f29H_UZplsApI8pQ
+    avatar:
+      path: ./files/avatar
+      empty: .files/avatar/empty.png
+    identity:
+      path: ./files/indentity

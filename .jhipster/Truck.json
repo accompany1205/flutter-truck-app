@@ -1,0 +1,71 @@
+{
+    "name": "Truck",
+    "fields": [
+        {
+            "fieldName": "plateNumber",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "conteneurPlateNumber",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "type",
+            "fieldType": "ETruckType",
+            "fieldValues": "DOMESTIC,EXPORT"
+        },
+        {
+            "fieldName": "width",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "height",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "length",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "maxWeight",
+            "fieldType": "Integer"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "driver",
+            "otherEntityRelationshipName": "truck",
+            "relationshipName": "driver",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "match",
+            "otherEntityRelationshipName": "truck",
+            "relationshipName": "match"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "transporterAccount",
+            "otherEntityRelationshipName": "truck",
+            "relationshipName": "transporterAccount",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200413163000",
+    "entityTableName": "truck",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": true,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

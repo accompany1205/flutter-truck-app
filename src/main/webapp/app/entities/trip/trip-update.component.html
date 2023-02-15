@@ -1,0 +1,157 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-trip-heading">Create or edit a Trip</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_isFull">Is Full</label>
+                    <input type="checkbox" class="form-control" name="isFull" id="field_isFull"
+                           formControlName="isFull"/>
+                    <div *ngIf="editForm.get('isFull')!.invalid && (editForm.get('isFull')!.dirty || editForm.get('isFull')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('isFull')?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_width">Width</label>
+                    <input type="number" class="form-control" name="width" id="field_width"
+                           formControlName="width"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_height">Height</label>
+                    <input type="number" class="form-control" name="height" id="field_height"
+                           formControlName="height"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_length">Length</label>
+                    <input type="number" class="form-control" name="length" id="field_length"
+                           formControlName="length"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_weight">Weight</label>
+                    <input type="number" class="form-control" name="weight" id="field_weight"
+                           formControlName="weight"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_marchandise">Marchandise</label>
+                    <select class="form-control" name="marchandise" formControlName="marchandise" id="field_marchandise">
+                        <option value="VEGETABLES">VEGETABLES</option>
+                        <option value="RAW_MATERIAL">RAW_MATERIAL</option>
+                        <option value="FISH">FISH</option>
+                        <option value="OTHER">OTHER</option>
+                    </select>
+                    <div *ngIf="editForm.get('marchandise')!.invalid && (editForm.get('marchandise')!.dirty || editForm.get('marchandise')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('marchandise')?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_etd">Etd</label>
+                    <div class="d-flex">
+                        <input id="field_etd" type="datetime-local" class="form-control" name="etd" formControlName="etd" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                    <div *ngIf="editForm.get('etd')!.invalid && (editForm.get('etd')!.dirty || editForm.get('etd')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('etd')?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('etd')?.errors?.ZonedDateTimelocal">
+                            This field should be a date and time.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_description">Description</label>
+                    <input type="text" class="form-control" name="description" id="field_description"
+                           formControlName="description"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_state">State</label>
+                    <select class="form-control" name="state" formControlName="state" id="field_state">
+                        <option value="SHIPPED">SHIPPED</option>
+                        <option value="PENDING">PENDING</option>
+                        <option value="MATCHED">MATCHED</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_eta">Eta</label>
+                    <div class="d-flex">
+                        <input id="field_eta" type="datetime-local" class="form-control" name="eta" formControlName="eta" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_distance">Distance</label>
+                    <input type="number" class="form-control" name="distance" id="field_distance"
+                           formControlName="distance"/>
+                    <div *ngIf="editForm.get('distance')!.invalid && (editForm.get('distance')!.dirty || editForm.get('distance')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('distance')?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('distance')?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_origin">Origin</label>
+                    <select class="form-control" id="field_origin" name="origin" formControlName="originId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="originOption.id" *ngFor="let originOption of origins; trackBy: trackById">{{ originOption.id }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_destination">Destination</label>
+                    <select class="form-control" id="field_destination" name="destination" formControlName="destinationId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="destinationOption.id" *ngFor="let destinationOption of destinations; trackBy: trackById">{{ destinationOption.id }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_clientAccount">Client Account</label>
+                    <select class="form-control" id="field_clientAccount" name="clientAccount" formControlName="clientAccountId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="clientAccountOption.id" *ngFor="let clientAccountOption of clientaccounts; trackBy: trackById">{{ clientAccountOption.id }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

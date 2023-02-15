@@ -1,0 +1,112 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-reputation-heading">Create or edit a Reputation</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_rate">Rate</label>
+                    <input type="number" class="form-control" name="rate" id="field_rate"
+                           formControlName="rate"/>
+                    <div *ngIf="editForm.get('rate')!.invalid && (editForm.get('rate')!.dirty || editForm.get('rate')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('rate')?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('rate')?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_goods">Goods</label>
+                    <input type="number" class="form-control" name="goods" id="field_goods"
+                           formControlName="goods"/>
+                    <div *ngIf="editForm.get('goods')!.invalid && (editForm.get('goods')!.dirty || editForm.get('goods')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('goods')?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('goods')?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_punctuality">Punctuality</label>
+                    <input type="number" class="form-control" name="punctuality" id="field_punctuality"
+                           formControlName="punctuality"/>
+                    <div *ngIf="editForm.get('punctuality')!.invalid && (editForm.get('punctuality')!.dirty || editForm.get('punctuality')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('punctuality')?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('punctuality')?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_communication">Communication</label>
+                    <input type="number" class="form-control" name="communication" id="field_communication"
+                           formControlName="communication"/>
+                    <div *ngIf="editForm.get('communication')!.invalid && (editForm.get('communication')!.dirty || editForm.get('communication')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('communication')?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('communication')?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_comment">Comment</label>
+                    <input type="text" class="form-control" name="comment" id="field_comment"
+                           formControlName="comment"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_transporterAccount">Transporter Account</label>
+                    <select class="form-control" id="field_transporterAccount" name="transporterAccount" formControlName="transporterAccountId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="transporterAccountOption.id" *ngFor="let transporterAccountOption of transporteraccounts; trackBy: trackById">{{ transporterAccountOption.id }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_clientAccount">Client Account</label>
+                    <select class="form-control" id="field_clientAccount" name="clientAccount" formControlName="clientAccountId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="clientAccountOption.id" *ngFor="let clientAccountOption of clientaccounts; trackBy: trackById">{{ clientAccountOption.id }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

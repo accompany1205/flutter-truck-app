@@ -1,0 +1,27 @@
+{
+    "name": "Identity",
+    "fields": [
+        {
+            "fieldName": "identity",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "any"
+        },
+        {
+            "fieldName": "type",
+            "fieldType": "EIdentity",
+            "fieldValues": "CIN,PASSPORT,DRIVING_LICENSE"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20200413162300",
+    "entityTableName": "identity",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": true,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

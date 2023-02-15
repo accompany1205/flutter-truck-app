@@ -1,0 +1,30 @@
+{
+    "name": "Conversation",
+    "fields": [],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "chat",
+            "otherEntityRelationshipName": "conversation",
+            "relationshipName": "chat"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "match",
+            "otherEntityRelationshipName": "conversation",
+            "relationshipName": "match",
+            "ownerSide": false
+        }
+    ],
+    "changelogDate": "20200413163500",
+    "entityTableName": "conversation",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": true,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

@@ -1,0 +1,79 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="transporterAccount">
+            <h2><span>Transporter Account</span> {{ transporterAccount.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span>Name</span></dt>
+                <dd>
+                    <span>{{ transporterAccount.name }}</span>
+                </dd>
+                <dt><span>Phone</span></dt>
+                <dd>
+                    <span>{{ transporterAccount.phone }}</span>
+                </dd>
+                <dt><span>Patent</span></dt>
+                <dd>
+                    <div *ngIf="transporterAccount.patent">
+                        <a (click)="openFile(transporterAccount?.patentContentType!, transporterAccount?.patent)">open</a>
+                        {{ transporterAccount.patentContentType }}, {{ byteSize(transporterAccount.patent) }}
+                    </div>
+                </dd>
+                <dt><span>Balance</span></dt>
+                <dd>
+                    <span>{{ transporterAccount.balance }}</span>
+                </dd>
+                <dt><span>Insurance</span></dt>
+                <dd>
+                    <div *ngIf="transporterAccount.insurance">
+                        <a (click)="openFile(transporterAccount?.insuranceContentType!, transporterAccount?.insurance)">open</a>
+                        {{ transporterAccount.insuranceContentType }}, {{ byteSize(transporterAccount.insurance) }}
+                    </div>
+                </dd>
+                <dt><span>Referal</span></dt>
+                <dd>
+                    <span>{{ transporterAccount.referal }}</span>
+                </dd>
+                <dt><span>Refered By</span></dt>
+                <dd>
+                    <span>{{ transporterAccount.referedBy }}</span>
+                </dd>
+                <dt><span>Mini Bio</span></dt>
+                <dd>
+                    <span>{{ transporterAccount.miniBio }}</span>
+                </dd>
+                <dt><span>Verified Phone</span></dt>
+                <dd>
+                    <span>{{ transporterAccount.verifiedPhone }}</span>
+                </dd>
+                <dt><span>Photo</span></dt>
+                <dd>
+                    <div *ngIf="transporterAccount.photo">
+                        <a (click)="openFile(transporterAccount?.photoContentType!, transporterAccount?.photo)">open</a>
+                        {{ transporterAccount.photoContentType }}, {{ byteSize(transporterAccount.photo) }}
+                    </div>
+                </dd>
+                <dt><span>User</span></dt>
+                <dd>
+                    {{ transporterAccount.userLogin }}
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/transporter-account', transporterAccount.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
